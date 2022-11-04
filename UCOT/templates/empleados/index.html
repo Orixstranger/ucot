@@ -1,0 +1,58 @@
+    {% include 'header.html' %}
+    <br/>
+    <a href="{{url_for('create')}} " class="btn btn-success">
+        Ingresar nuevo empleado
+    </a>
+    <br>
+    <br>
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cedula</th>
+                <th>Edad</th>
+                <th>Telefono</th>
+                <th>Correo Electronico</th>
+                <th>Localidad</th>
+                <th>Lugar de servicio</th>
+                <th>Reconocimientos</th>
+                <th>Sanciones</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>Fotografia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{empleado[0] }}</td>
+                <td>{{empleado[1] }}</td>
+                <td>{{empleado[2] }}</td>
+                <td>{{empleado[3] }}</td>
+                <td>{{empleado[4] }}</td>
+                <td>{{empleado[5] }}</td>
+                <td>{{empleado[6] }}</td>
+                <td>{{empleado[7] }}</td>
+                <td>{{empleado[8] }}</td>
+                <td>{{empleado[9] }}</td>
+                <td>{{empleado[10] }}</td>
+                <td>{{empleado[11] }}</td>
+                <td>{{empleado[12] }}</td>
+                <td>{{empleado[13] }}</td>
+                <td>
+                    <img class="img-thumbnail" width="100" src="uploads/{{empleado[14] }}" alt="">
+                </td>
+                <td><a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar </a> |
+                    <a onclick="return confirm('¿Desea borrar el empleado?')" class="btn btn-danger" ref="/destroy/{{empleado[0]}}">Eliminar </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
