@@ -3,6 +3,10 @@ from flask import render_template,request,redirect,url_for,flash
 from flaskext.mysql import MySQL
 #para visualizar las imagenes flask
 from flask import send_from_directory
+#proteccion para autentificaciones no logueadas al servidor
+from flask_wtf.csrf import CSRFProtect
+#importar para las sesiones, para determinadas rutas no se accedan mientras no usuarios logueados
+from flask_login import LoginManager,login_user,logout_user,login_required
 #nombrar el nombre de la foto de acuerdo al tiempo
 from datetime import datetime
 #Acceso a las fotografias
@@ -22,6 +26,9 @@ from models.entries.User import User
 app= Flask(__name__)
 app.secret_key="Develoteca"
 
+#proteccion para ingresos al servidor no autorizados
+csrf=CSRFProtect()
+
 #usaremos las instrucciones del mysql, con la base de datos
 mysql = MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
@@ -29,6 +36,11 @@ app.config['MYSQL_DATABASE_USER']='root'
 app.config['MYSQL_DATABASE_PASSWORD']=''
 app.config['MYSQL_DATABASE_DB']='ucot'
 mysql.init_app(app)
+
+login_manager_app=LoginManager(app)
+@login_manager_app.user_loader
+def load_user(id):
+    return ModelUser.get_by_id(mysql,id)
 
 #carpeta para manipulacion de fotografias
 CARPETA=os.path.join('uploads')
@@ -40,7 +52,8 @@ def uploads(nombreFoto):
     return send_from_directory(app.config['CARPETA'],nombreFoto)
 
 #routeo, recibe la url
-@app.route('/lugar')
+@app.route('/inicio')
+@login_required
 def index():
     #generamos una instruccion mysql
     sql = "SELECT * FROM `empleado`;"
@@ -59,6 +72,7 @@ def index():
 
 #Borrado de datos de la BD
 @app.route('/destroy/<int:id>')
+@login_required
 def destroy(id):
     conn = mysql.connect()
     cursor=conn.cursor()
@@ -69,10 +83,11 @@ def destroy(id):
 
     cursor.execute("DELETE FROM empleado WHERE id=%s",id)
     conn.commit()
-    return redirect('/')
+    return redirect('/inicio')
 
 #Edición de datos de la BD
 @app.route('/edit/<int:id>')
+@login_required
 def edit(id):
     conn = mysql.connect()
     cursor=conn.cursor()
@@ -85,6 +100,7 @@ def edit(id):
 
 #Actualizar los datos    
 @app.route('/update', methods=['POST'])
+@login_required
 def update():
 
     _codigo=request.form['txtCodigo']
@@ -131,16 +147,18 @@ def update():
     
     conn.commit()
     
-    return redirect('/')
+    return redirect('/inicio')
 
 
 #Creación de nuevo empleado
 @app.route('/create')
+@login_required
 def create():
     return render_template('empleados/create.html')
 
 #Insertar un nuevo empleado
 @app.route('/store', methods=['POST'])
+@login_required
 def storage():
     _codigo=request.form['txtCodigo']
     _nombre=request.form['txtNombre']
@@ -179,7 +197,7 @@ def storage():
     cursor=conn.cursor()
     cursor.execute(sql,datos)
     conn.commit()
-    return redirect('/')
+    return redirect('/inicio')
     
 #Creación de login
 @app.route('/')
@@ -197,7 +215,8 @@ def login():
         if logged_user != None:
             print("///////////////",logged_user.password)
             if logged_user.password:
-                return redirect('/lugar')
+                login_user(logged_user)
+                return redirect('/inicio')
             else:
                 print("*******************************")
                 flash("Contraseña invalida...")
@@ -209,6 +228,20 @@ def login():
     else:
         return render_template('auth/login.html')    
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/login')
+
+def status_401(error):
+    return redirect(url_for('login'))
+
+def status_404(error):
+    return "<h1>Pagina no encontrada<h1/>", 404
+
 if __name__ == '__main__':
     app.config.from_object(ConfigParser['development'])
+    csrf.init_app(app)
+    app.register_error_handler(401,status_401)
+    app.register_error_handler(404,status_404)
     app.run(debug=True)
