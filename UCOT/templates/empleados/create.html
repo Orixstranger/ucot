@@ -13,7 +13,7 @@
 {% endwith %}
 <br>
 <form method="post" action="/store" enctype="multipart/form-data">
-
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="card">
         <div class="card-header">
             Ingresar empleados
