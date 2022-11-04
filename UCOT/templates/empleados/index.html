@@ -1,15 +1,12 @@
     {% include 'header.html' %}
     <br/>
-    <a href="{{url_for('create')}} " class="btn btn-success">
-        Ingresar nuevo empleado
-    </a>
     <br>
     <br>
 
     <table class="table table-light">
         <thead class="thead-light">
             <tr>
-                <th>#</th>
+                <!--<th>#</th>-->
                 <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
@@ -18,7 +15,7 @@
                 <th>Telefono</th>
                 <th>Correo Electronico</th>
                 <th>Localidad</th>
-                <th>Lugar de servicio</th>
+                <th>Estado</th>
                 <th>Reconocimientos</th>
                 <th>Sanciones</th>
                 <th>C1</th>
@@ -30,7 +27,7 @@
         <tbody>
             {% for empleado in empleados %}
             <tr>
-                <td>{{empleado[0] }}</td>
+                <!--<td>{{empleado[0] }}</td>-->
                 <td>{{empleado[1] }}</td>
                 <td>{{empleado[2] }}</td>
                 <td>{{empleado[3] }}</td>

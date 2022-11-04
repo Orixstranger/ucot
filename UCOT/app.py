@@ -111,7 +111,7 @@ def update():
     _telefono=request.form['txtTelefono']
     _correo_electronico=request.form['txtCorreoElectronico']
     _localidad=request.form['txtLocalidad']
-    _lugar_de_servicio=request.form['txtLugarDeServicio']
+    _estado=request.form['txtEstado']
     _reconocimientos=request.form['txtReconocimientos']
     _sanciones=request.form['txtSanciones']
     _c1=request.form['txtC1']
@@ -119,9 +119,9 @@ def update():
     _fotografia=request.files['txtFotografia']
     id=request.form['txtID']
     #generamos una instruccion mysql
-    sql = "UPDATE empleado SET codigo=%s, nombre=%s, apellido=%s, cedula=%s, edad=%s, telefono=%s, correo_electronico=%s, localidad=%s, lugar_de_servicio=%s, reconocimientos=%s, sanciones=%s, c1=%s, c2=%s WHERE id=%s;"
+    sql = "UPDATE empleado SET codigo=%s, nombre=%s, apellido=%s, cedula=%s, edad=%s, telefono=%s, correo_electronico=%s, localidad=%s, estado=%s, reconocimientos=%s, sanciones=%s, c1=%s, c2=%s WHERE id=%s;"
     
-    datos = (_codigo,_nombre,_apellido,_cedula,_edad, _telefono, _correo_electronico,_localidad,_lugar_de_servicio,_reconocimientos, _sanciones, _c1, _c2, id)
+    datos = (_codigo,_nombre,_apellido,_cedula,_edad, _telefono, _correo_electronico,_localidad,_estado,_reconocimientos, _sanciones, _c1, _c2, id)
 
     conn = mysql.connect()
     cursor=conn.cursor()
@@ -168,7 +168,7 @@ def storage():
     _telefono=request.form['txtTelefono']
     _correo_electronico=request.form['txtCorreoElectronico']
     _localidad=request.form['txtLocalidad']
-    _lugar_de_servicio=request.form['txtLugarDeServicio']
+    _estado=request.form['txtEstado']
     _reconocimientos=request.form['txtReconocimientos']
     _sanciones=request.form['txtSanciones']
     _c1=request.form['txtC1']
@@ -189,15 +189,40 @@ def storage():
         _fotografia.save("uploads/"+nuevoNombreFoto)
 
     #generamos una instruccion mysql
-    sql = "INSERT INTO `empleado` (`codigo`, `nombre`, `apellido`, `cedula`, `edad`, `telefono`, `correo_electronico`, `localidad`, `lugar_de_servicio`, `reconocimientos`, `sanciones`, `c1`, `c2`, `fotografia`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    sql = "INSERT INTO `empleado` (`codigo`, `nombre`, `apellido`, `cedula`, `edad`, `telefono`, `correo_electronico`, `localidad`, `estado`, `reconocimientos`, `sanciones`, `c1`, `c2`, `fotografia`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
     
-    datos = (_codigo,_nombre,_apellido,_cedula,_edad, _telefono, _correo_electronico,_localidad,_lugar_de_servicio,_reconocimientos, _sanciones, _c1, _c2, nuevoNombreFoto)
+    datos = (_codigo,_nombre,_apellido,_cedula,_edad, _telefono, _correo_electronico,_localidad,_estado,_reconocimientos, _sanciones, _c1, _c2, nuevoNombreFoto)
 
     conn = mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql,datos)
     conn.commit()
     return redirect('/inicio')
+
+@app.route('/buscarEmpleado')
+def buscarEmpleado():
+    return render_template('empleados/buscar.html')
+
+@app.route('/buscar', methods=['POST'])
+def buscar():
+    _buscarUsuario=request.form['buscarUsuario']
+    #generamos una instruccion mysql
+    sql = "SELECT * FROM `empleado` WHERE codigo=%s OR cedula=%s OR apellido=%s;"
+    #cursor.execute("UPDATE empleado SET fotografia=%s WHERE id=%s",(nuevoNombreFoto,id))
+    print('****************************************')
+    conn = mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql,(_buscarUsuario,_buscarUsuario,_buscarUsuario))
+    
+    #selecciona todos los registro y los presenta con las instruccion sql SELECT
+    empleados=cursor.fetchall()
+    print(empleados)
+
+    conn.commit()
+
+
+    return render_template("empleados/index.html", empleados=empleados)
+    return print('entre a buscar')
     
 #Creación de login
 @app.route('/')

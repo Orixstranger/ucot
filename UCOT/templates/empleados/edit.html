@@ -16,7 +16,7 @@ Formulario para editar
                 <br>
                 <div class="form-group">
                     <label for="txtCodigo">Codigo:</label>
-                    <input id="txtCodigo" value="{{empleado[1]}}" class="form-control" type="text" name="txtCodigo">
+                    <input id="txtCodigo" value="{{empleado[1]}}" class="form-control" type="number" name="txtCodigo">
                 </div>
                 <div class="form-group">
                     <label for="txtNombre">Nombre:</label>
@@ -28,7 +28,7 @@ Formulario para editar
                 </div>
                 <div class="form-group">
                     <label for="txtCedula">Cédula:</label>
-                    <input id="txtCedula"  value="{{empleado[4]}}" class="form-control" type="text" name="txtCedula">
+                    <input id="txtCedula"  value="{{empleado[4]}}" class="form-control" type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" name="txtCedula">
                 </div>
                 <div class="form-group">
                     <label for="txtEdad">Edad:</label>
@@ -46,8 +46,8 @@ Formulario para editar
                     <label for="txtLocalidad">Localidad:</label>
                     <input id="txtLocalidad" value="{{empleado[8]}}" class="form-control" type="text" name="txtLocalidad">
                 <div class="form-group">
-                    <label for="txtLugarDeServicio">Lugar de servicio:</label>
-                    <input id="txtLugarDeServicio" value="{{empleado[9]}}" class="form-control" type="text" name="txtLugarDeServicio">
+                    <label for="txtEstado">Lugar de servicio:</label>
+                    <input id="txtEstado" value="{{empleado[9]}}" class="form-control" type="text" name="txtEstado">
                 </div>
                 <div class="form-group">
                     <label for="txtReconocimientos">Reconocimientos:</label>

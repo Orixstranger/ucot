@@ -1,0 +1,23 @@
+{% include 'header.html' %}
+
+{% block customCSS %}
+
+{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% block body %}
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+Buscar empleado
+
+<form action="/buscar" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="text" id="buscarUsuario" class="fadeIn second" name="buscarUsuario" placeholder="codigo, cedula o apellido del empleado">
+    <input type="submit" class="fadeIn fourth"  value="Buscar">
+    <a class="fadeIn fourth" href="{{url_for('index')}}">REGRESAR</a> 
+</form>
+
+{% endblock %}
