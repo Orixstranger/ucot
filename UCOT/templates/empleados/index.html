@@ -1,55 +1,18 @@
-    {% include 'header.html' %}
-    <br/>
-    <br>
-    <br>
+{% include 'header.html' %}
+<!-- ======= Hero Section ======= -->
+<section id="ucot1" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <h1>Unidad de Control Operativo de Tránsito</h1>
+        <h1>UCOT</h1>
+        <p>Trabajamos por <span class="typed" data-typed-items="tu seguridad, la vida, Loja"></span></p>
+        <div class="social-links">
+            <a href="{{ url_for('lista') }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+    </div>
+</section><!-- End Hero -->
 
-    <table class="table table-light">
-        <thead class="thead-light">
-            <tr>
-                <!--<th>#</th>-->
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cedula</th>
-                <th>Edad</th>
-                <th>Telefono</th>
-                <th>Correo Electronico</th>
-                <th>Localidad</th>
-                <th>Estado</th>
-                <th>Reconocimientos</th>
-                <th>Sanciones</th>
-                <th>C1</th>
-                <th>C2</th>
-                <th>Fotografia</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for empleado in empleados %}
-            <tr>
-                <!--<td>{{empleado[0] }}</td>-->
-                <td>{{empleado[1] }}</td>
-                <td>{{empleado[2] }}</td>
-                <td>{{empleado[3] }}</td>
-                <td>{{empleado[4] }}</td>
-                <td>{{empleado[5] }}</td>
-                <td>{{empleado[6] }}</td>
-                <td>{{empleado[7] }}</td>
-                <td>{{empleado[8] }}</td>
-                <td>{{empleado[9] }}</td>
-                <td>{{empleado[10] }}</td>
-                <td>{{empleado[11] }}</td>
-                <td>{{empleado[12] }}</td>
-                <td>{{empleado[13] }}</td>
-                <td>
-                    <img class="img-thumbnail" width="100" src="uploads/{{empleado[14] }}" alt="">
-                </td>
-                <td><a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar </a> |
-                    <a onclick="return confirm('¿Desea borrar el empleado?')" class="btn btn-danger" ref="/destroy/{{empleado[0]}}">Eliminar </a>
-                </td>
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    </table>
-    {% include 'footer.html' %}
+{% include 'footer.html' %}

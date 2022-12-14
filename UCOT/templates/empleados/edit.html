@@ -1,85 +1,125 @@
 {% include 'header.html' %}
-Formulario para editar
+
+
 {% for empleado in empleados %}
 
-<form method="post" action="/update" enctype="multipart/form-data">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <div class="card">
-        <div class="card-header">
-            Editar empleado
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Datos del empleado</h5>
-            <p class="card-text">
-                               
-                <input type="hidden" value="{{empleado[0]}}" name="txtID" id="txtID">
-                <br>
-                <div class="form-group">
-                    <label for="txtCodigo">Codigo:</label>
-                    <input id="txtCodigo" value="{{empleado[1]}}" class="form-control" type="number" name="txtCodigo">
-                </div>
-                <div class="form-group">
-                    <label for="txtNombre">Nombre:</label>
-                    <input id="txtNombre" value="{{empleado[2]}}" class="form-control" type="text" name="txtNombre">
-                </div>
-                <div class="form-group">
-                    <label for="txtApellido">Apellido:</label>
-                    <input id="txtApellido" value="{{empleado[3]}}" class="form-control" type="text" name="txtApellido">
-                </div>
-                <div class="form-group">
-                    <label for="txtCedula">Cédula:</label>
-                    <input id="txtCedula"  value="{{empleado[4]}}" class="form-control" type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" name="txtCedula">
-                </div>
-                <div class="form-group">
-                    <label for="txtEdad">Edad:</label>
-                    <input id="txtEdad"  value="{{empleado[5]}}" class="form-control" type="text" name="txtEdad">
-                </div>
-                <div class="form-group">
-                    <label for="txtTelefono">Telefono:</label>
-                    <input id="txtTelefono"  value="{{empleado[6]}}" class="form-control" type="text" name="txtTelefono">
-                </div>
-                <div class="form-group">
-                    <label for="txtCorreoElectronico">Correo Electrónico:</label>
-                    <input id="txtCorreoElectronico" value="{{empleado[7]}}"  class="form-control" type="text" name="txtCorreoElectronico">
-                </div>
-                <div class="form-group">
-                    <label for="txtLocalidad">Localidad:</label>
-                    <input id="txtLocalidad" value="{{empleado[8]}}" class="form-control" type="text" name="txtLocalidad">
-                <div class="form-group">
-                    <label for="txtEstado">Lugar de servicio:</label>
-                    <input id="txtEstado" value="{{empleado[9]}}" class="form-control" type="text" name="txtEstado">
-                </div>
-                <div class="form-group">
-                    <label for="txtReconocimientos">Reconocimientos:</label>
-                    <input id="txtReconocimientos" value="{{empleado[10]}}" class="form-control" type="text" name="txtReconocimientos">
-                </div>
-                <div class="form-group">
-                    <label for="txtSanciones">Sanciones:</label>
-                    <input id="txtSanciones" value="{{empleado[11]}}" class="form-control" type="text" name="txtSanciones">
-                </div>
-                <div class="form-group">
-                    <label for="txtC1">C1:</label>
-                    <input id="txtC1" value="{{empleado[12]}}" class="form-control" type="text" name="txtC1">
-                </div>
-                <div class="form-group">
-                    <label for="txtC2">C2:</label>
-                    <input id="txtC2" value="{{empleado[13]}}" class="form-control" type="text" name="txtC2">
-                </div>
-                <div class="form-group">
-                    <label for="txtFotografia">Fotografía:</label>
-                    <img class="img-thumbnail" width="200" src="{{ url_for('uploads',nombreFoto=empleado[14]) }}" alt="">
-                    <input id="txtFotografia" value="{{empleado[14]}}" class="form-control" type="file" name="txtFotografia">
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="Guardar">
-                    <a href="{{url_for('index')}}" class="btn btn-primary">Regresar</a>
-                </div>
-                
-            </p>
-        </div>
-    </div>
 
-</form>
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2>Actualización de datos del ACT</h2>
+            <p>Verifique los datos correctamente antes de ingresar a un nuevo elemento uniformado</p>
+        </div>
+
+        <form method="post" action="/update" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <section id="about" class="about">
+                <div class="container" data-aos="fade-up">
+
+                    <div class="row">
+
+                        <div class="card">
+                            <div class="card-header">
+                                Editar empleado
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Datos del empleado</h5>
+                                <p class="card-text">
+
+                                    <input type="hidden" value="{{empleado[0]}}" name="txtID" id="txtID">
+                                    <br>
+                                <div class="form-group">
+                                    <label for="txtCodigo">Codigo:</label>
+                                    <input id="txtCodigo" value="{{empleado[1]}}" class="form-control" type="number"
+                                        name="txtCodigo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtNombre">Nombre:</label>
+                                    <input id="txtNombre" value="{{empleado[2]}}" class="form-control" type="text"
+                                        name="txtNombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtApellido">Apellido:</label>
+                                    <input id="txtApellido" value="{{empleado[3]}}" class="form-control" type="text"
+                                        name="txtApellido">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCedula">Cédula:</label>
+                                    <input id="txtCedula" value="{{empleado[4]}}" class="form-control" type="text"
+                                        onkeyup="this.value=this.value.replace(/[^\d]/,'')" name="txtCedula">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtEdad">Edad:</label>
+                                    <input id="txtEdad" value="{{empleado[5]}}" class="form-control" type="text"
+                                        name="txtEdad">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTelefono">Telefono:</label>
+                                    <input id="txtTelefono" value="{{empleado[6]}}" class="form-control" type="text"
+                                        name="txtTelefono">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtCorreoElectronico">Correo Electrónico:</label>
+                                    <input id="txtCorreoElectronico" value="{{empleado[7]}}" class="form-control"
+                                        type="text" name="txtCorreoElectronico">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtLocalidad">Localidad:</label>
+                                    <input id="txtLocalidad" value="{{empleado[8]}}" class="form-control" type="text"
+                                        name="txtLocalidad">
+                                    <div class="form-group">
+                                        <label for="txtEstado">Lugar de servicio:</label>
+                                        <input id="txtEstado" value="{{empleado[9]}}" class="form-control" type="text"
+                                            name="txtEstado">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtReconocimientos">Reconocimientos:</label>
+                                        <input id="txtReconocimientos" value="{{empleado[10]}}" class="form-control"
+                                            type="text" name="txtReconocimientos">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtSanciones">Sanciones:</label>
+                                        <input id="txtSanciones" value="{{empleado[11]}}" class="form-control"
+                                            type="text" name="txtSanciones">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtC1">C1:</label>
+                                        <input id="txtC1" value="{{empleado[12]}}" class="form-control" type="text"
+                                            name="txtC1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtC2">C2:</label>
+                                        <input id="txtC2" value="{{empleado[13]}}" class="form-control" type="text"
+                                            name="txtC2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtFotografia">Fotografía:</label>
+                                        <img class="img-thumbnail" width="200"
+                                            src="{{ url_for('uploads',nombreFoto=empleado[14]) }}" alt="">
+                                        <input id="txtFotografia" value="{{empleado[14]}}" class="form-control"
+                                            type="file" name="txtFotografia">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-success" value="Guardar">
+                                        <a href="{{url_for('index')}}" class="btn btn-primary">Regresar</a>
+                                    </div>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </section>
+        </form>
+
+    </div>
+</section><!-- End About Section -->
+
 
 {% endfor %}
+
 {% include 'footer.html' %}
+

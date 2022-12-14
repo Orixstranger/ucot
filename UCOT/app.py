@@ -70,6 +70,26 @@ def index():
 
     return render_template("empleados/index.html", empleados=empleados)
 
+#routeo, recibe la url
+@app.route('/lista')
+@login_required
+def lista():
+    #generamos una instruccion mysql
+    sql = "SELECT * FROM `empleado`;"
+    conn = mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql)
+    
+    #selecciona todos los registro y los presenta con las instruccion sql SELECT
+    empleados=cursor.fetchall()
+    print(empleados)
+
+    conn.commit()
+
+
+    return render_template("empleados/list.html", empleados=empleados)
+
+
 #Borrado de datos de la BD
 @app.route('/destroy/<int:id>')
 @login_required
