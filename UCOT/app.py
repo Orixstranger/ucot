@@ -106,7 +106,7 @@ def destroy(id):
     return redirect('/inicio')
 
 #Edición de datos de la BD
-@app.route('/edit/<int:id>')
+@app.route('/editar/<int:id>')
 @login_required
 def edit(id):
     conn = mysql.connect()
